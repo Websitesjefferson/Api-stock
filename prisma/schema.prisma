@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+}
+model Productbrand {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+}
+model Product {
+  id             String        @id @default(uuid())
+  name           String
+  amount         String
+  price          String
+  description    String
+  banner         String
+  categoryId     String
+  productbtandId String
+  category       Category?     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  productbtand   Productbrand? @relation(fields: [productbtandId], references: [id], onDelete: Cascade)
+}
+
+
